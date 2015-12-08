@@ -1,9 +1,6 @@
 package ie.gmit.sw.client;
 
 import java.rmi.Naming;
-import java.util.Scanner;
-
-import ie.gmit.sw.QuadgramMap;
 import ie.gmit.sw.VignereBreaker;
 
 public class Client 
