@@ -29,8 +29,5 @@ public class VignereBreakerImpl extends UnicastRemoteObject implements VignereBr
 		Naming.bind("cypher-service", new VignereBreakerImpl());
 		
 		System.out.println("service started...");
-		
-		
-	}
-	
+	}	
 }

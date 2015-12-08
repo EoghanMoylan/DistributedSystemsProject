@@ -123,6 +123,5 @@ public class Vigenere { //Blaise de Vigenere is (incorrectly) accredited with in
 		
 		String plainTxt = v.doCypher(cypherTxt, false);
 		System.out.println(plainTxt);
-		
 	}
 }

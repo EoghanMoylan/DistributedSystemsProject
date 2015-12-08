@@ -2,8 +2,10 @@ package ie.gmit.sw;
 
 public class KeyEnumerator {
 	
-	private char[] getNextKey(char[] key){
-		for (int i = key.length - 1; i >=0; i--){
+	private char[] getNextKey(char[] key)
+	{
+		for (int i = key.length - 1; i >=0; i--)
+		{
 			if (key[i] =='Z'){
 				if (i == 0) return null;
 				key[i] = 'A';
@@ -15,8 +17,8 @@ public class KeyEnumerator {
 		return key;
 	}
 	
-	
-	public char[] crackCypher(String cypherText, int maxKeyLength){
+	public char[] crackCypher(String cypherText, int maxKeyLength)
+	{
 		char[] key = null;
 		
 		int counter = 0;
@@ -35,7 +37,8 @@ public class KeyEnumerator {
 		return key;
 	}
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) 
+	{
 		new KeyEnumerator().crackCypher("TVHUGTUDHKOURUGTS", 6);;
 	}
 }
