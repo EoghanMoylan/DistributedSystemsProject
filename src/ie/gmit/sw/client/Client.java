@@ -7,10 +7,8 @@ public class Client
 {
 	public static void main(String[] args) throws Exception
 	{
-		VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
-		String result = vb.decrypt("fdsafdsafdsa", 7);
-		
-		//this stuff needs to be in your tomcat app
-		System.out.println(result);
+			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
+			String result = vb.decrypt("fdsafdsafdsa", 7);
+			System.out.println(result);
 	}
 }

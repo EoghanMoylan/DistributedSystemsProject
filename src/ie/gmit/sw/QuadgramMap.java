@@ -14,7 +14,8 @@ public class QuadgramMap
 	{
 		float score = 0.00f;
 		for(int i = 1 ; i < text.length() ; i+=4)
-		{	
+		{
+			
 			if(i + 4 < text.length())
 			{
 				break;
