@@ -99,7 +99,7 @@ public class Vigenere { //Blaise de Vigenere is (incorrectly) accredited with in
 			if (text[i] < 'A' || text[i] > 'Z') continue;
 			
 			int j = 0;
-			if (i < key.length) j = i;
+			if (j > key.length) j = 0;
 			
 			if(encrypt){
 				buffer.append(getEncryptedCharacter(key[j], text[i]));
@@ -117,8 +117,8 @@ public class Vigenere { //Blaise de Vigenere is (incorrectly) accredited with in
 	}
 	
 	public static void main(String[] args) {
-		Vigenere v = new Vigenere("JAVAP");
-		String cypherTxt = v.doCypher("ANTIDISESTABLISHMENTARIANISM", true);
+		Vigenere v = new Vigenere("test");
+		String cypherTxt = v.doCypher("THESEARETHELADS", true);
 		System.out.println(cypherTxt);
 		
 		String plainTxt = v.doCypher(cypherTxt, false);

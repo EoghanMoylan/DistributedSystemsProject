@@ -13,23 +13,24 @@ public class QuadgramMap
 	public float getScore(String text)
 	{
 		float score = 0.00f;
-		for(int i = 1 ; i < text.length() ; i+=4)
+		float totalScore = 0.00f;
+		for(int i = 0 ; i < text.length() ; i +=4)
 		{
-			
-			if(i + 4 < text.length())
+			if(i + 4 > text.length())
 			{
 				break;
 			}
 			String next = text.substring(i, i + 4);
-			
+
+			//System.out.println(next);
 			if(map.get(next) != null)
 			{
 				float frequency =(float) map.get(next);
-				float total = (float)map.size();
-				score += Math.log10((frequency/total));
+				score += Math.log10((frequency));
+				totalScore += score;
 			}
 		}
-		return score;
+		return totalScore;
 	}
 	private void parse(String filename) throws Exception
 	{
@@ -60,7 +61,7 @@ public class QuadgramMap
 		}
 		
 		br.close();
-		System.out.println(map);
+		//System.out.println(map);
 	}
 	public static void main(String[] args) throws Exception 
 	{

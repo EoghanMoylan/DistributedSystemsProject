@@ -2,6 +2,15 @@ package ie.gmit.sw;
 
 public class KeyEnumerator {
 	
+	private QuadgramMap map;
+	private float highestScore = 0;
+	private String closestKey;
+	
+	public KeyEnumerator() throws Exception
+	{
+		map = new QuadgramMap("./stuff.txt");
+	}
+	
 	private char[] getNextKey(char[] key)
 	{
 		for (int i = key.length - 1; i >=0; i--)
@@ -17,7 +26,7 @@ public class KeyEnumerator {
 		return key;
 	}
 	
-	public char[] crackCypher(String cypherText, int maxKeyLength)
+	public String crackCypher(String cypherText, int maxKeyLength)
 	{
 		char[] key = null;
 		
@@ -28,17 +37,30 @@ public class KeyEnumerator {
 			
 			do{
 				counter++;
-				//System.out.println(new String(key));
+				
+				String result = new Vigenere(new String(key)).doCypher(cypherText, false);
+				float score = map.getScore(result);
+				
+				//System.out.println(score);
+				
+				if(score > highestScore)
+				{
+					highestScore = score;
+					closestKey = new String(key);
+					//System.out.println(closestKey);
+					System.out.println("Highest Score " + highestScore + ", Closest Key " + closestKey + " , result : " + result);
+				}
 				
 			}while ((key = getNextKey(key)) != null);
 		}
 		System.out.println("Enumerated " + counter + " keys.");
+		String yahoo = new Vigenere(closestKey).doCypher(cypherText, false);
 		
-		return key;
+		return yahoo;
 	}
 	
-	public static void main(String[] args) 
+	public static void main(String[] args) throws Exception 
 	{
-		new KeyEnumerator().crackCypher("TVHUGTUDHKOURUGTS", 6);;
+		new KeyEnumerator().crackCypher("MAXLXTKXMAXETWL", 4);;
 	}
 }
