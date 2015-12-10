@@ -1,0 +1,15 @@
+package ie.gmit.sw.client;
+
+import java.rmi.Naming;
+
+import ie.gmit.sw.VignereBreaker;
+
+public class Client 
+{
+	public void crack(String decrypt, int maxLength) throws Exception
+	{
+		VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
+		String result = vb.decrypt(decrypt, maxLength);
+		System.out.println(result);
+	}
+}
