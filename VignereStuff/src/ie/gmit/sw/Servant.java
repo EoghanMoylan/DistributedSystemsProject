@@ -5,12 +5,12 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class VignereBreakerImpl extends UnicastRemoteObject implements VignereBreaker {
+public class Servant extends UnicastRemoteObject implements VignereBreaker {
 
 	private static final long serialVersionUID = 1L;
 	private KeyEnumerator breaker;
 	
-	public VignereBreakerImpl() throws Exception {
+	public Servant() throws Exception {
 		breaker = new KeyEnumerator();
 		//UnicastRemoteObject.exportObject(this);
 		
@@ -26,7 +26,7 @@ public class VignereBreakerImpl extends UnicastRemoteObject implements VignereBr
 		
 		LocateRegistry.createRegistry(1099);
 		
-		Naming.bind("cypher-service", new VignereBreakerImpl());
+		Naming.bind("cypher-service", new Servant());
 		
 		System.out.println("service started...");
 	}	

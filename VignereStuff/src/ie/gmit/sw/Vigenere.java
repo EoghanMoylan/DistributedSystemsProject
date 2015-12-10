@@ -116,12 +116,12 @@ public class Vigenere { //Blaise de Vigenere is (incorrectly) accredited with in
 		return doCypher(text, encrypt);
 	}
 	
-//	public static void main(String[] args) {
-//		Vigenere v = new Vigenere("test");
-//		String cypherTxt = v.doCypher("HELLORYAN", true);
-//		System.out.println(cypherTxt);
-//		
-//		String plainTxt = v.doCypher(cypherTxt, false);
-//		System.out.println(plainTxt);
-//	}
+	public static void main(String[] args) {
+		Vigenere v = new Vigenere("tess");
+		String cypherTxt = v.doCypher("THISISTHEULTIMATETESTOFFATE", true);
+		System.out.println(cypherTxt);
+		
+		String plainTxt = v.doCypher(cypherTxt, false);
+		System.out.println(plainTxt);
+	}
 }
