@@ -8,7 +8,7 @@ public class Client
 	public static void main(String[] args) throws Exception
 	{
 			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
-			String result = vb.decrypt("fdsafdsafdsa", 7);
+			String result = vb.decrypt("MABLBLTMXLMMHLXXBYBMIBVDLMABLNI", 4);
 			System.out.println(result);
 	}
 }

@@ -118,7 +118,7 @@ public class Vigenere { //Blaise de Vigenere is (incorrectly) accredited with in
 	
 	public static void main(String[] args) {
 		Vigenere v = new Vigenere("test");
-		String cypherTxt = v.doCypher("THISISATESTTOSEEIFITPICKSTHISUP", true);
+		String cypherTxt = v.doCypher("HELLORYAN", true);
 		System.out.println(cypherTxt);
 		
 		String plainTxt = v.doCypher(cypherTxt, false);

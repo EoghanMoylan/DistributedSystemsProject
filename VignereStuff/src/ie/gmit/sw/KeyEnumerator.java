@@ -61,6 +61,6 @@ public class KeyEnumerator {
 	
 	public static void main(String[] args) throws Exception 
 	{
-		new KeyEnumerator().crackCypher("MABLBLTMXLMMHLXXBYBMIBVDLMABLNI", 4);;
+		new KeyEnumerator().crackCypher("AXEEHKRTG", 4);
 	}
 }
