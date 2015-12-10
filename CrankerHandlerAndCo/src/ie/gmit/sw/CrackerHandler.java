@@ -25,8 +25,6 @@ public class CrackerHandler extends HttpServlet {
 		String cypherText = req.getParameter("frmCypherText");
 		String taskNumber = req.getParameter("frmStatus");
 
-        Vigenere vignere = new Vigenere("KeyKeyKey");
-        String encodedText = vignere.doCypher(cypherText, false).toString();
 		out.print("<html><head><title>Distributed Systems Assignment</title>");		
 		out.print("</head>");		
 		out.print("<body>");
@@ -47,7 +45,7 @@ public class CrackerHandler extends HttpServlet {
 		
 		out.print("RMI Server is located at " + remoteHost);
 		out.print("<P>Maximum Key Length: " + maxKeyLength);		
-		out.print("<P>CypherText: " + encodedText);
+		out.print("<P>CypherText: " + cypherText);
 		out.print("<P>This servlet should only be responsible for handling client request and returning responses. Everything else should be handled by different objects.");
 		out.print("<P>Note that any variables declared inside this doGet() method are thread safe. Anything defined at a class level is shared between HTTP requests.");				
 
