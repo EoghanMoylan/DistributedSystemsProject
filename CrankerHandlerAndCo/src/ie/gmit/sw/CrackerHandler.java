@@ -1,13 +1,13 @@
 package ie.gmit.sw;
 
 import java.io.*;
+import java.rmi.Naming;
+
 import javax.servlet.*;
 import javax.servlet.http.*;
 
-public class CrackerHandler extends HttpServlet {
-	/**
-	 * 
-	 */
+public class CrackerHandler extends HttpServlet 
+{
 	private static final long serialVersionUID = 1L;
 	private String remoteHost = null;
 	private static long jobNumber = 0;
@@ -24,6 +24,7 @@ public class CrackerHandler extends HttpServlet {
 		int maxKeyLength = Integer.parseInt(req.getParameter("frmMaxKeyLength"));
 		String cypherText = req.getParameter("frmCypherText");
 		String taskNumber = req.getParameter("frmStatus");
+		String result = "";
 
 		out.print("<html><head><title>Distributed Systems Assignment</title>");		
 		out.print("</head>");		
@@ -37,7 +38,15 @@ public class CrackerHandler extends HttpServlet {
 			//Check out-queue for finished job
 		}
 		
-		
+		try
+		{
+			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
+			result = vb.decrypt(cypherText, maxKeyLength);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
 		
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<div id=\"r\"></div>");
@@ -45,7 +54,7 @@ public class CrackerHandler extends HttpServlet {
 		
 		out.print("RMI Server is located at " + remoteHost);
 		out.print("<P>Maximum Key Length: " + maxKeyLength);		
-		out.print("<P>CypherText: " + cypherText);
+		out.print("<P>CypherText: " + result);
 		out.print("<P>This servlet should only be responsible for handling client request and returning responses. Everything else should be handled by different objects.");
 		out.print("<P>Note that any variables declared inside this doGet() method are thread safe. Anything defined at a class level is shared between HTTP requests.");				
 
@@ -73,6 +82,9 @@ public class CrackerHandler extends HttpServlet {
 		out.print("<script>");
 		out.print("var wait=setTimeout(\"document.frmCracker.submit();\", 10000);");
 		out.print("</script>");
+		
+	
+
 				
 		/*-----------------------------------------------------------------------     
 		 *  Next Steps: just in case you removed the above....

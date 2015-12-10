@@ -59,8 +59,8 @@ public class KeyEnumerator {
 		return yahoo;
 	}
 	
-	public static void main(String[] args) throws Exception 
-	{
-		new KeyEnumerator().crackCypher("AXEEHKRTG", 4);
-	}
+//	public static void main(String[] args) throws Exception 
+//	{
+//		new KeyEnumerator().crackCypher("AXEEHKRTG", 4);
+//	}
 }

@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="C:/Users/eoghan/Documents/apache-tomcat-9.0.0.M1/lib/tomcat-util-scan.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eoghan/Documents/apache-tomcat-9.0.0.M1/lib/tomcat-websocket.jar"/>
 	<classpathentry kind="lib" path="C:/Users/eoghan/Documents/apache-tomcat-9.0.0.M1/lib/websocket-api.jar"/>
+	<classpathentry kind="lib" path="vigenere.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

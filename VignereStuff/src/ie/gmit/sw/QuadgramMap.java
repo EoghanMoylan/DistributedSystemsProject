@@ -63,8 +63,8 @@ public class QuadgramMap
 		br.close();
 		//System.out.println(map);
 	}
-	public static void main(String[] args) throws Exception 
-	{
-		new QuadgramMap("./stuff.txt");
-	}
+//	public static void main(String[] args) throws Exception 
+//	{
+//		new QuadgramMap("./stuff.txt");
+//	}
 }
