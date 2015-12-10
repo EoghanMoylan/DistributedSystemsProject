@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Move package &apos;ie.gmit.sw.client&apos; to &apos;CrankerHandlerAndCo/src&apos;&#x0D;&#x0A;- Original project: &apos;VignereStuff&apos;&#x0D;&#x0A;- Destination element: &apos;CrankerHandlerAndCo/src&apos;&#x0D;&#x0A;- Original element: &apos;VignereStuff/src/ie.gmit.sw.client&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move package" destination="=CrankerHandlerAndCo/src" element1="/src&lt;ie.gmit.sw.client" flags="589830" fragments="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.movePackages" stamp="1449754665071" version="1.0"/>
-</session>
