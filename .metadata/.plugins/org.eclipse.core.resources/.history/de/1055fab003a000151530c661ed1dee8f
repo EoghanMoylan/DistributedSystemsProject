@@ -1,0 +1,57 @@
+package ie.gmit.sw.queue;
+
+import java.util.*;
+import java.util.concurrent.*;
+
+public class VigenereRequestManager
+{
+	private BlockingQueue queue = new ArrayBlockingQueue<Request>(10);
+	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();
+	
+	public void add(final Request r)
+	{
+		try
+		{
+			//queue.put(r)//blocks if queue full
+			new Thread(new Runnable()
+			{
+				public void run()
+				{
+					try
+					{
+						queue.put(r);
+					}
+					catch(Exception e)
+					{
+						System.out.println(e);
+					}
+				}
+			}).start();
+		}
+		catch(Exception e)
+		{
+			System.out.println(e);
+		}
+	}
+	public String getResult(long jobNumber)
+	{
+		if(out.containsKey(jobNumber))
+		{
+			return out.get(jobNumber);
+		}
+
+		else
+		{
+			return null; //no result
+		}
+	}
+
+		public class Request {
+		private String cypherText;
+		private int maxKeySize;
+		private long jobNumber;
+
+		constructor + getter/setter
+
+		}
+}

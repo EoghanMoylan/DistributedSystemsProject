@@ -1,0 +1,12 @@
+package ie.gmit.sw.queue;
+
+import java.util.*;
+import java.util.concurrent.*;
+
+public class VigenereRequestManager
+{
+	private BlockingQueue queue = new ArrayBlockingQueue<Request>(10);
+	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();
+	
+	
+}

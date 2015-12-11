@@ -1,0 +1,24 @@
+package ie.gmit.sw;
+
+import java.util.*;
+
+public class InQueue 
+{
+	private List inQ = new LinkedList();
+	private InQueue()
+	{
+		
+	}
+	public List getInstance()
+	{
+		return this.inQ;
+	}
+	public void addToQueue(Vignere vin, int jobNo)
+	{
+		inQ.add(jobNo, vin);
+	}
+	public void sendOut()
+	{
+		
+	}
+}

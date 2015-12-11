@@ -1,0 +1,36 @@
+package ie.gmit.sw.queue;
+
+import java.rmi.Naming;
+import java.util.concurrent.BlockingQueue;
+
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
+
+import org.apache.jasper.tagplugins.jstl.core.Out;
+
+import ie.gmit.sw.VignereBreaker;
+
+public class VigenereHandler implements Runnable
+{
+	private BlockingQueue<Request> queue;
+	
+	public VigenereHandler(BlockingQueue<Request> q)
+	{
+		this.queue = q;
+	}
+	
+	public void run()
+	{
+		Request req = queue.take();
+		try
+		{
+			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
+			String result = vb.decrypt(String cypherText, int  maxKeyLength);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+		Out.output(req.getJbNumer(), result);
+	}
+			
+}

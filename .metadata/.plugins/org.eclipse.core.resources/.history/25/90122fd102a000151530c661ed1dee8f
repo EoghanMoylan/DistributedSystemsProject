@@ -1,0 +1,6 @@
+package ie.gmit.sw.queue;
+
+public class VigenereRequestManager
+{
+
+}

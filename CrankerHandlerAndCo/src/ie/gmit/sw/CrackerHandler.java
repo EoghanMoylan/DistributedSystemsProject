@@ -38,15 +38,6 @@ public class CrackerHandler extends HttpServlet
 			//Check out-queue for finished job
 		}
 		
-		try
-		{
-			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
-			result = vb.decrypt(cypherText, maxKeyLength);
-		}
-		catch (Exception e)
-		{
-			System.out.println(e);
-		}
 		
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<div id=\"r\"></div>");

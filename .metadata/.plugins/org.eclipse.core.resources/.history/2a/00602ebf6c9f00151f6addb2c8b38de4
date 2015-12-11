@@ -1,0 +1,9 @@
+package ie.gmit.sw;
+
+public class InQueue 
+{
+	public InQueue()//Vigenere vigenere)
+	{
+		
+	}
+}

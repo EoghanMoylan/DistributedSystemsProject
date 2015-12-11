@@ -1,0 +1,8 @@
+package ie.gmit.sw.queue;
+
+public class Request 
+{
+	private String cypherText;
+	private int maxKeySize;
+	private long jobNumber;
+}

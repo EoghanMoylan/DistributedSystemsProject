@@ -1,0 +1,39 @@
+package ie.gmit.sw.queue;
+
+import java.rmi.Naming;
+import java.util.*;
+import java.util.concurrent.*;
+
+import ie.gmit.sw.VignereBreaker;
+
+public class VigenereHandler implements Runnable
+{
+	private BlockingQueue<Request> queue;
+	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();
+	
+	private String result;
+	private String cypherText;
+	private int  maxKeyLength;
+	public VigenereHandler(BlockingQueue<Request> q)
+	{
+		this.queue = q;
+	}
+	
+	public void run()
+	{
+		Request req = queue.take();
+		try
+		{
+			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
+			
+			result = vb.decrypt(cypherText,  maxKeyLength);
+		}
+		catch (Exception e)
+		{
+			System.out.println(e);
+		}
+		
+		out.put(req.getJbNumer(), result);
+	}
+			
+}

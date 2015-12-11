@@ -1,0 +1,12 @@
+package ie.gmit.sw;
+
+import java.util.*;
+
+public class InQueue 
+{
+	private List inQ = new LinkedList();
+	public InQueue()//Vigenere vigenere)
+	{
+		
+	}
+}

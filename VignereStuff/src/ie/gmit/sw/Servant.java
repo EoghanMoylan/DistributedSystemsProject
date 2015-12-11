@@ -14,7 +14,6 @@ public class Servant extends UnicastRemoteObject implements VignereBreaker {
 	public Servant() throws Exception {
 		breaker = new KeyEnumerator(filename);
 		//UnicastRemoteObject.exportObject(this);
-		
 	}
 	
 	public String decrypt(String cypherText, int maxKeyLength) throws RemoteException {
