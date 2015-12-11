@@ -6,9 +6,9 @@ public class KeyEnumerator {
 	private float highestScore = 0;
 	private String closestKey;
 	
-	public KeyEnumerator() throws Exception
+	public KeyEnumerator(String filename) throws Exception
 	{
-		map = new QuadgramMap("./stuff.txt");
+		map = new QuadgramMap(filename);
 	}
 	
 	private char[] getNextKey(char[] key)
