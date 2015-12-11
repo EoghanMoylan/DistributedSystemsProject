@@ -1,17 +1,19 @@
 package ie.gmit.sw;
 
 import java.io.*;
-import java.rmi.Naming;
 
 import javax.servlet.*;
 import javax.servlet.http.*;
+
+import ie.gmit.sw.queue.Request;
+import ie.gmit.sw.queue.VigenereRequestManager;
 
 public class CrackerHandler extends HttpServlet 
 {
 	private static final long serialVersionUID = 1L;
 	private String remoteHost = null;
 	private static long jobNumber = 0;
-
+	
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
 		remoteHost = ctx.getInitParameter("RMI_SERVER"); //Reads the value from the <context-param> in web.xml
@@ -37,6 +39,10 @@ public class CrackerHandler extends HttpServlet
 		}else{
 			//Check out-queue for finished job
 		}
+		
+		Request newReq = new Request(cypherText, maxKeyLength, jobNumber);
+		VigenereRequestManager vrm = new VigenereRequestManager(newReq);
+		result = vrm.getResult(jobNumber);
 		
 		
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");

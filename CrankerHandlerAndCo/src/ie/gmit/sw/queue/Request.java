@@ -18,8 +18,8 @@ public class Request
 		return cypherText;
 	}
 
-	public void setCypherText(String cypherText) {
-		
+	public void setCypherText(String cypherText) 
+	{
 		this.cypherText = cypherText;
 	}
 

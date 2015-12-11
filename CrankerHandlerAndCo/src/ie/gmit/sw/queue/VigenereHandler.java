@@ -9,42 +9,44 @@ import ie.gmit.sw.VignereBreaker;
 public class VigenereHandler implements Runnable
 {
 	private BlockingQueue<Request> queue;
-	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();
-	
+	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();	
 	private String result;
-	private String cypherText;
-	private int  maxKeyLength;
+	private Request req = null;
 	
 	public VigenereHandler(BlockingQueue<Request> q, Map<Long, String> out)
 	{
 		this.out = out;
 		this.queue = q;
+		run();
 	}
 	
 	public void run()
 	{
-		Request req = null;
-		try {
+		try 
+		{
 			req = queue.take();
 		} 
 		
 		catch (InterruptedException e1)
 		{
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		try
 		{
 			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
-			
-			result = vb.decrypt(cypherText,  maxKeyLength);
+			System.out.println("STTTTUFF");
+			result = vb.decrypt(req.getCypherText(),  req.getMaxKeySize());
+			System.out.println(result);
+			out.put(req.getJobNumber(), result);
+
 		}
 		catch (Exception e)
 		{
 			System.out.println(e);
 		}
-		
-		out.put(req.getJobNumber(), result);
+	}	
+	public String returnResult()
+	{
+		return out.get(req.getJobNumber());
 	}
-			
 }
