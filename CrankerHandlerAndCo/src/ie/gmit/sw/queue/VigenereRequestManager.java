@@ -13,10 +13,9 @@ public class VigenereRequestManager
 	
 	public VigenereRequestManager()
 	{
-
 	}
 	public void add(final Request r)
-	{
+	{	
 		try
 		{
 			//queue.put(r)//blocks if queue full
@@ -41,8 +40,8 @@ public class VigenereRequestManager
 				}
 			});
 			t1.start();
-			//Needs to wait three seconds to give thread chance to run.
-			t1.join(3000);
+			//Needs to wait to give thread chance to run.
+			t1.join();
 		}
 		catch(Exception e)
 		{
@@ -69,15 +68,16 @@ public class VigenereRequestManager
 			}
 		});
 		t2.start();
-		t2.join(1000);
+		t2.join();
 		out.remove(jobNumber);
 		handler.removeRequest(jobNumber);
 		return cypherText;
 	}
-//	public static void main(String[] args) throws Exception 
-//	{
-//		Request req = new Request("MABLBLMAXNEMBFTMXMXLMHYYTMX", 4, 1);
-//		VigenereRequestManager vrm = new VigenereRequestManager(req);
-//		vrm.getResult(1);
-//	}
+	public static void main(String[] args) throws Exception 
+	{
+		Request req = new Request("MABLBLMAXNEMBFTMXMXLMHYYTMX", 4, 1);
+		VigenereRequestManager vrm = new VigenereRequestManager();
+		vrm.add(req);
+		System.out.println(vrm.getResult(1));
+	}
 }
