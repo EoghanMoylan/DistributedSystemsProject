@@ -47,4 +47,8 @@ public class VigenereHandler implements Runnable
 	{
 		return out.get(req.getJobNumber());
 	}
+	public void removeRequest(long jobNumber)
+	{
+		out.remove(jobNumber);
+	}
 }

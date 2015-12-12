@@ -13,10 +13,12 @@ public class CrackerHandler extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private String remoteHost = null;
 	private static long jobNumber = 0;
+	private VigenereRequestManager vrm;
 	
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
 		remoteHost = ctx.getInitParameter("RMI_SERVER"); //Reads the value from the <context-param> in web.xml
+		vrm = new VigenereRequestManager();
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -26,30 +28,31 @@ public class CrackerHandler extends HttpServlet
 		int maxKeyLength = Integer.parseInt(req.getParameter("frmMaxKeyLength"));
 		String cypherText = req.getParameter("frmCypherText");
 		String taskNumber = req.getParameter("frmStatus");
-		String result = "";
+		String result = "Please wait...";
+		String resultCheck = "Please wait...";
 
 		out.print("<html><head><title>Distributed Systems Assignment</title>");		
 		out.print("</head>");		
 		out.print("<body>");
 		
 		if (taskNumber == null){
-			taskNumber = new String("T" + jobNumber);
-			jobNumber++;
 			//Add job to in-queue
-		}else{
-			//Check out-queue for finished job
+			taskNumber = new String("T" + jobNumber);
+			jobNumber++;	
+			Request newReq = new Request(cypherText, maxKeyLength, jobNumber);
+			vrm.add(newReq);
 		}
-		
-		Request newReq = new Request(cypherText, maxKeyLength, jobNumber);
-		VigenereRequestManager vrm = new VigenereRequestManager(newReq);
-		try {
-			result = vrm.getResult(jobNumber);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		else
+		{
+			try {
+				result = vrm.getResult(jobNumber);
+				System.out.println(jobNumber);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		
-		
+		//Check out-queue for finished job
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");
 		out.print("<div id=\"r\"></div>");
 		
@@ -66,7 +69,7 @@ public class CrackerHandler extends HttpServlet
 		out.print("<LI>Generate a big random number to use a a job number, or just increment a static long variable declared at a class level, e.g. jobNumber");	
 		out.print("<LI>Create some type of a message request object from the maxKeyLength, cypherText and jobNumber.");	
 		out.print("<LI>Add the message request object to a LinkedList or BlockingQueue (the IN-queue)");			
-		out.print("<LI>Return the jobNumber to the client web browser with a wait interval using <meta http-equiv=\"refresh\" content=\"10\">. The content=\"10\" will wait for 10s.");	
+		out.print("<LI>Return the jobNumber to the client web browser with a wait interval using. The content=\"10\" will wait for 10s.");	
 		out.print("<LI>Have some process check the LinkedList or BlockingQueue for message requests ");	
 		out.print("<LI>Poll a message request from the front of the queue and make an RMI call to the Vigenere Cypher Service");			
 		out.print("<LI>Get the result and add to a Map (the OUT-queue) using the jobNumber and the key and the result as a value");	
@@ -81,9 +84,12 @@ public class CrackerHandler extends HttpServlet
 		out.print("</body>");	
 		out.print("</html>");	
 		
-		out.print("<script>");
-		out.print("var wait=setTimeout(\"document.frmCracker.submit();\", 10000);");
-		out.print("</script>");
+		if(result.equals(resultCheck))
+		{
+			out.print("<script>");
+			out.print("var wait=setTimeout(\"document.frmCracker.submit();\", 10000);");	
+			out.print("</script>");
+		}
 		
 	
 

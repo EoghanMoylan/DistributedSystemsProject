@@ -11,9 +11,9 @@ public class VigenereRequestManager
 	private VigenereHandler handler;
 	private String cypherText;
 	
-	public VigenereRequestManager(Request r)
+	public VigenereRequestManager()
 	{
-		add(r);
+
 	}
 	public void add(final Request r)
 	{
@@ -27,8 +27,10 @@ public class VigenereRequestManager
 					try
 					{
 						queue.put(r);
+						//writes to map with encoded text so it can be passed to VignereHandler
 						out.put(r.getJobNumber(),r.getCypherText());				
 						handler = new VigenereHandler(queue, out);
+						//rewrites map with decoded text
 						out.put(r.getJobNumber(), handler.returnResult());
 					//	System.out.println(r.getJobNumber() + " " + r.getCypherText() + " " + handler.returnResult());
 					}
@@ -68,6 +70,8 @@ public class VigenereRequestManager
 		});
 		t2.start();
 		t2.join(1000);
+		out.remove(jobNumber);
+		handler.removeRequest(jobNumber);
 		return cypherText;
 	}
 //	public static void main(String[] args) throws Exception 
