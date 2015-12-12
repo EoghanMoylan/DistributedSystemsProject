@@ -42,7 +42,12 @@ public class CrackerHandler extends HttpServlet
 		
 		Request newReq = new Request(cypherText, maxKeyLength, jobNumber);
 		VigenereRequestManager vrm = new VigenereRequestManager(newReq);
-		result = vrm.getResult(jobNumber);
+		try {
+			result = vrm.getResult(jobNumber);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
 		
 		out.print("<H1>Processing request for Job#: " + taskNumber + "</H1>");

@@ -8,8 +8,8 @@ public class VigenereRequestManager
 	private static final int maxCapacity = 10;
 	private BlockingQueue<Request> queue = new ArrayBlockingQueue<Request>(maxCapacity);
 	private Map<Long, String> out = new ConcurrentHashMap<Long, String>();
+	private VigenereHandler handler;
 	private String cypherText;
-	VigenereHandler handler;
 	
 	public VigenereRequestManager(Request r)
 	{
@@ -20,35 +20,36 @@ public class VigenereRequestManager
 		try
 		{
 			//queue.put(r)//blocks if queue full
-			new Thread(new Runnable()
+			Thread t1 = new Thread(new Runnable()
 			{
 				public void run()
 				{
 					try
 					{
 						queue.put(r);
-						out.put(r.getJobNumber(),r.getCypherText());
-						
+						out.put(r.getJobNumber(),r.getCypherText());				
 						handler = new VigenereHandler(queue, out);
 						out.put(r.getJobNumber(), handler.returnResult());
-
+					//	System.out.println(r.getJobNumber() + " " + r.getCypherText() + " " + handler.returnResult());
 					}
 					catch(Exception e)
 					{
 						System.out.println(e);
 					}
 				}
-			}).start();
+			});
+			t1.start();
+			//Needs to wait three seconds to give thread chance to run.
+			t1.join(3000);
 		}
 		catch(Exception e)
 		{
 			System.out.println(e);
 		}
 	}
-	public String getResult(long jobNumber)
+	public String getResult(long jobNumber) throws Exception
 	{
-	    
-		new Thread(new Runnable()
+		Thread t2 = new Thread(new Runnable()
 		{
 			public void run()
 			{
@@ -56,7 +57,7 @@ public class VigenereRequestManager
 				{
 					String result =	out.get(jobNumber);
 					cypherText = result;
-					System.out.println(result);
+					System.out.println(cypherText);
 					
 				}
 				catch(Exception e)
@@ -64,15 +65,15 @@ public class VigenereRequestManager
 					System.out.println(e);
 				}
 			}
-		}).start();
-		
+		});
+		t2.start();
+		t2.join(1000);
 		return cypherText;
-		
 	}
-	public static void main(String[] args) 
-	{
-		Request req = new Request("BBACBISBIACIBSBKLACSB", 4, 1);
-		VigenereRequestManager vrm = new VigenereRequestManager(req);
-		vrm.getResult(1);
-	}
+//	public static void main(String[] args) throws Exception 
+//	{
+//		Request req = new Request("MABLBLMAXNEMBFTMXMXLMHYYTMX", 4, 1);
+//		VigenereRequestManager vrm = new VigenereRequestManager(req);
+//		vrm.getResult(1);
+//	}
 }

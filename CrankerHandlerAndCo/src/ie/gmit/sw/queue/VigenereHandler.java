@@ -34,9 +34,7 @@ public class VigenereHandler implements Runnable
 		try
 		{
 			VignereBreaker vb = (VignereBreaker) Naming.lookup("cypher-service");
-			System.out.println("STTTTUFF");
 			result = vb.decrypt(req.getCypherText(),  req.getMaxKeySize());
-			System.out.println(result);
 			out.put(req.getJobNumber(), result);
 
 		}
