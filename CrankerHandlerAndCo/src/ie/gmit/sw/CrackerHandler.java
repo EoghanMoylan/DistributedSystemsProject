@@ -13,12 +13,11 @@ public class CrackerHandler extends HttpServlet
 	private static final long serialVersionUID = 1L;
 	private String remoteHost = null;
 	private static long jobNumber = 0;
-	private VigenereRequestManager vrm;
+	private VigenereRequestManager vrm = new VigenereRequestManager();
 	
 	public void init() throws ServletException {
 		ServletContext ctx = getServletContext();
 		remoteHost = ctx.getInitParameter("RMI_SERVER"); //Reads the value from the <context-param> in web.xml
-		vrm = new VigenereRequestManager();
 	}
 
 	public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -41,9 +40,6 @@ public class CrackerHandler extends HttpServlet
 			jobNumber++;	
 			Request newReq = new Request(cypherText, maxKeyLength, jobNumber);
 			vrm.add(newReq);
-		}
-		else
-		{
 			try {
 				result = vrm.getResult(jobNumber);
 				System.out.println(jobNumber);
@@ -89,11 +85,7 @@ public class CrackerHandler extends HttpServlet
 			out.print("<script>");
 			out.print("var wait=setTimeout(\"document.frmCracker.submit();\", 10000);");	
 			out.print("</script>");
-		}
-		
-	
-
-				
+		}	
 		/*-----------------------------------------------------------------------     
 		 *  Next Steps: just in case you removed the above....
 		 *-----------------------------------------------------------------------
