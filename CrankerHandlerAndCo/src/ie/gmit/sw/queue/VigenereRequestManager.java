@@ -56,7 +56,9 @@ public class VigenereRequestManager
 			{
 				try
 				{
+					//returns decoded text
 					String result =	out.get(jobNumber);
+					//allows us to us result outside of thread
 					cypherText = result;
 					System.out.println(cypherText);
 					
@@ -69,12 +71,15 @@ public class VigenereRequestManager
 		});
 		t2.start();
 		t2.join();
+		//removes request from map
 		out.remove(jobNumber);
+		//removes request from map in vignere handler
 		handler.removeRequest(jobNumber);
 		return cypherText;
 	}
 	public static void main(String[] args) throws Exception 
 	{
+		//just used for testing
 		Request req = new Request("MABLBLMAXNEMBFTMXMXLMHYYTMX", 4, 1);
 		VigenereRequestManager vrm = new VigenereRequestManager();
 		vrm.add(req);
